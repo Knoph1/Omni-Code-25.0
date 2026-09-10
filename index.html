@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omni-Code 25.0: The Founder's Journey | Web Edition</title>
+    <meta name="description" content="A personal and technical memoir navigating software development, resilience, infrastructure, and founding Omni-Legacy Limited.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 3px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased selection:bg-sky-500 selection:text-white transition-colors duration-200">
+
+    <!-- Reading Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-1 bg-slate-200 dark:bg-slate-800 z-50">
+        <div id="progress-bar" class="h-full bg-sky-600 dark:bg-sky-400 w-0 transition-all duration-75"></div>
+    </div>
+
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <button id="mobile-menu-toggle" class="lg:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-sky-600 flex items-center justify-center font-bold text-white text-sm shadow-md">OC</div>
+                    <span class="font-bold text-lg text-slate-900 dark:text-white tracking-tight">Omni-Code 25.0</span>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="flex items-center border border-slate-200 dark:border-slate-800 rounded-lg p-1 bg-slate-100 dark:bg-slate-900">
+                    <button id="font-decrease" class="px-2 py-1 text-xs font-semibold hover:bg-white dark:hover:bg-slate-800 rounded transition-all">A-</button>
+                    <button id="font-reset" class="px-2 py-1 text-xs font-semibold hover:bg-white dark:hover:bg-slate-800 rounded transition-all">Reset</button>
+                    <button id="font-increase" class="px-2 py-1 text-xs font-semibold hover:bg-white dark:hover:bg-slate-800 rounded transition-all">A+</button>
+                </div>
+                <button id="theme-toggle" class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all" aria-label="Toggle Theme">
+                    <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex">
+
+        <!-- Mobile Drawer Overlay -->
+        <div id="drawer-overlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 hidden lg:hidden"></div>
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="fixed lg:sticky top-16 left-0 z-40 h-[calc(100vh-4rem)] w-72 bg-white dark:bg-slate-900 lg:bg-transparent lg:dark:bg-transparent border-r border-slate-200 dark:border-slate-800 lg:border-none p-6 overflow-y-auto transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out shrink-0">
+            <nav class="space-y-6">
+                <div>
+                    <h3 class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3">Front Matter</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#cover" class="nav-link block text-sky-600 dark:text-sky-400 font-medium hover:underline">Title Page</a></li>
+                        <li><a href="#foreword" class="nav-link block text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Foreword</a></li>
+                        <li><a href="#preface" class="nav-link block text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Preface: The Genesis</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3">Chapters</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#chapter-1" class="nav-link block text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Ch 1: Foundations & Code Base</a></li>
+                        <li><a href="#chapter-2" class="nav-link block text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Ch 2: The Paramilitary Rigor</a></li>
+                        <li><a href="#chapter-3" class="nav-link block text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Ch 3: Systems & Tax Architecture</a></li>
+                        <li><a href="#chapter-4" class="nav-link block text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Ch 4: Incorporating Omni-Legacy</a></li>
+                        <li><a href="#chapter-5" class="nav-link block text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Ch 5: The Master Architecture</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3">Back Matter</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#technical-appendix" class="nav-link block text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Technical Appendix</a></li>
+                        <li><a href="#acknowledgments" class="nav-link block text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Acknowledgments</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Book Content -->
+        <main id="reader-container" class="flex-1 py-10 lg:py-12 lg:px-12 max-w-4xl mx-auto space-y-16 text-base sm:text-lg leading-relaxed">
+
+            <!-- Hero / Cover Section -->
+            <section id="cover" class="text-center py-12 border-b border-slate-200 dark:border-slate-800 space-y-6">
+                <div class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs sm:text-sm font-mono rounded-full font-medium tracking-wide">VERSION 25.0 — MEMOIR & ARCHITECTURE</div>
+                <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                    Omni-Code 25.0:<br><span class="text-sky-600 dark:text-sky-400">The Founder's Journey</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-light">
+                    A narrative on full-stack resilience, statutory systems, disciplined execution, and building Omni-Legacy Limited.
+                </p>
+                <div class="pt-4 text-sm text-slate-500 dark:text-slate-500 font-mono">
+                    Nairobi, Kenya • First Web Edition
+                </div>
+            </section>
+
+            <!-- Foreword -->
+            <section id="foreword" class="space-y-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight border-b border-slate-200 dark:border-slate-800 pb-2">Foreword</h2>
+                <p>
+                    Software architecture is rarely just about code syntax; it is a direct reflection of structural discipline, mental resilience, and systematic problem-solving. When you engineer systems designed to handle dynamic workflows or process statutory compliance frameworks, every edge case matters.
+                </p>
+                <blockquote class="p-4 my-4 border-l-4 border-sky-500 bg-slate-100 dark:bg-slate-900 italic text-slate-700 dark:text-slate-300 rounded-r-lg">
+                    "We do not build software simply to execute commands; we build infrastructure to withstand complexity, scale human capability, and endure changing environments."
+                </blockquote>
+            </section>
+
+            <!-- Preface -->
+            <section id="preface" class="space-y-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight border-b border-slate-200 dark:border-slate-800 pb-2">Preface: The Genesis</h2>
+                <p>
+                    The journey documented in <em>Omni-Code 25.0</em> spans pivotal intersections: academic grounding in Information Technology, intense public service training, statutory tax analysis, and founding an enterprise dedicated to technological impact.
+                </p>
+                <p>
+                    From configuring full-stack JavaScript architectures to scaling web applications, this text logs the technical blueprints, strategic roadmaps, and operational philosophies that underpin modern engineering leadership.
+                </p>
+            </section>
+
+            <!-- Chapter 1 -->
+            <section id="chapter-1" class="space-y-6">
+                <header class="space-y-2">
+                    <span class="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-widest font-semibold">Chapter One</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">Foundations & Code Base</h2>
+                </header>
+                <p>
+                    Every solid architecture begins with clear fundamentals. Transitioning from academic studies in Information Technology to real-world application deployment demands a deep appreciation for full-stack paradigms, type safety, and clean system boundaries.
+                </p>
+                <p>
+                    Modern web architectures rely on declarative UI frameworks paired with robust database schemas. Below is a foundational pattern illustrating serverless database connections within a Next.js environment:
+                </p>
+
+                <!-- Interactive Code Block -->
+                <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100 overflow-hidden shadow-lg font-mono text-xs sm:text-sm my-6">
+                    <div class="flex items-center justify-between px-4 py-2 bg-slate-800 border-b border-slate-700">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+                            <span class="text-slate-400 ml-2">lib/db.ts</span>
+                        </div>
+                        <button onclick="copyCode(this)" class="px-2 py-1 bg-slate-700 hover:bg-slate-600 text-xs rounded text-slate-200 transition-colors">Copy</button>
+                    </div>
+                    <pre class="p-4 overflow-x-auto"><code><span class="text-sky-400">import</span> { Pool } <span class="text-sky-400">from</span> <span class="text-emerald-400">'pg'</span>;
+
+<span class="text-sky-400">const</span> pool = <span class="text-sky-400">new</span> Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: <span class="text-amber-400">false</span>
+  }
+});
+
+<span class="text-sky-400">export async function</span> <span class="text-blue-400">query</span>(text: <span class="text-emerald-300">string</span>, params?: <span class="text-emerald-300">any</span>[]) {
+  <span class="text-sky-400">const</span> start = Date.now();
+  <span class="text-sky-400">const</span> res = <span class="text-sky-400">await</span> pool.query(text, params);
+  <span class="text-sky-400">const</span> duration = Date.now() - start;
+  console.log(<span class="text-emerald-400">`Executed query in ${duration}ms`</span>);
+  <span class="text-sky-400">return</span> res;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Chapter 2 -->
+            <section id="chapter-2" class="space-y-6">
+                <header class="space-y-2">
+                    <span class="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-widest font-semibold">Chapter Two</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">The Paramilitary Rigor</h2>
+                </header>
+                <p>
+                    Discipline is not an abstract concept; it is forged through physical and mental conditioning. Experiencing rigorous paramilitary training instills an unwavering commitment to operational readiness, order, and teamwork under pressure.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+                    <div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-2">Operational Endurance</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Pushing past perceived limits through structured physical conditioning and tactical focus.</p>
+                    </div>
+                    <div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-2">Unwavering Precision</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Executing directives cleanly without short-term compromises or procedural errors.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chapter 3 -->
+            <section id="chapter-3" class="space-y-6">
+                <header class="space-y-2">
+                    <span class="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-widest font-semibold">Chapter Three</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">Systems & Tax Architecture</h2>
+                </header>
+                <p>
+                    Navigating statutory frameworks requires the same precision as designing relational database schemas. Understanding tax administration, customs compliance, electronic invoicing, and transfer pricing principles reveals how digital infrastructure integrates directly with national policy.
+                </p>
+                <p>
+                    Building robust compliance tools demands clear verification routines, automated auditing logs, and zero-trust validation mechanisms.
+                </p>
+            </section>
+
+            <!-- Chapter 4 -->
+            <section id="chapter-4" class="space-y-6">
+                <header class="space-y-2">
+                    <span class="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-widest font-semibold">Chapter Four</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">Incorporating Omni-Legacy</h2>
+                </header>
+                <p>
+                    The transition from software practitioner to corporate director is marked by legal incorporation, governance structures, and clear long-term strategy. Establishing Omni-Legacy Limited represented the convergence of technical innovation, corporate leadership, and sustainable digital solutions.
+                </p>
+            </section>
+
+            <!-- Chapter 5 -->
+            <section id="chapter-5" class="space-y-6">
+                <header class="space-y-2">
+                    <span class="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-widest font-semibold">Chapter Five</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">The Master Architecture</h2>
+                </header>
+                <p>
+                    Looking ahead requires setting multi-decade milestones across education, asset accumulation, scholarly research, and family legacy. A founder's roadmap balances current technical execution with future academic and societal contributions.
+                </p>
+            </section>
+
+            <!-- Technical Appendix -->
+            <section id="technical-appendix" class="space-y-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight border-b border-slate-200 dark:border-slate-800 pb-2">Technical Appendix</h2>
+                <ul class="list-disc pl-6 space-y-2 text-sm sm:text-base">
+                    <li><strong>Full-Stack Suite:</strong> Next.js, React, TypeScript, Tailwind CSS, Node.js, PostgreSQL, Docker.</li>
+                    <li><strong>Deployment Pipelines:</strong> Vercel CI/CD, GitHub Version Control, Automated Domain Routing.</li>
+                    <li><strong>Statutory Frameworks:</strong> eTIMS Integration Architecture, Tax & Customs Compliance Workflows.</li>
+                </ul>
+            </section>
+
+            <!-- Acknowledgments -->
+            <section id="acknowledgments" class="space-y-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight border-b border-slate-200 dark:border-slate-800 pb-2">Acknowledgments</h2>
+                <p>
+                    Grateful to family, colleagues, mentors, and the software community whose support continues to power this journey.
+                </p>
+            </section>
+
+            <!-- Footer -->
+            <footer class="pt-12 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-500 space-y-2">
+                <p>© Omni-Legacy Limited. All rights reserved.</p>
+                <p>Designed for deployment on GitHub Pages & modern web hosts.</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- JavaScript for Dynamic Interactions -->
+    <script>
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        // Reading Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + '%';
+        });
+
+        // Mobile Sidebar Drawer
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const drawerOverlay = document.getElementById('drawer-overlay');
+
+        function toggleDrawer() {
+            sidebar.classList.toggle('-translate-x-full');
+            drawerOverlay.classList.toggle('hidden');
+        }
+
+        mobileMenuToggle.addEventListener('click', toggleDrawer);
+        drawerOverlay.addEventListener('click', toggleDrawer);
+
+        // Close drawer when clicking nav link on mobile
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (!sidebar.classList.contains('-translate-x-full') && window.innerWidth < 1024) {
+                    toggleDrawer();
+                }
+            });
+        });
+
+        // Font Size Adjuster
+        const readerContainer = document.getElementById('reader-container');
+        let currentFontSize = 18; // base px size
+
+        document.getElementById('font-increase').addEventListener('click', () => {
+            if (currentFontSize < 24) {
+                currentFontSize += 2;
+                readerContainer.style.fontSize = currentFontSize + 'px';
+            }
+        });
+
+        document.getElementById('font-decrease').addEventListener('click', () => {
+            if (currentFontSize > 14) {
+                currentFontSize -= 2;
+                readerContainer.style.fontSize = currentFontSize + 'px';
+            }
+        });
+
+        document.getElementById('font-reset').addEventListener('click', () => {
+            currentFontSize = 18;
+            readerContainer.style.fontSize = '';
+        });
+
+        // Code Copy Functionality
+        function copyCode(button) {
+            const codeBlock = button.parentElement.nextElementSibling.querySelector('code');
+            navigator.clipboard.writeText(codeBlock.innerText).then(() => {
+                const originalText = button.innerText;
+                button.innerText = 'Copied!';
+                button.classList.add('bg-emerald-600');
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.classList.remove('bg-emerald-600');
+                }, 2000);
+            });
+        }
+    </script>
+    <!-- 
+    By: Knoph O. Ayieko
+    -->
+</body>
+</html>
