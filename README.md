@@ -28,3 +28,9 @@ This repository hosts the web reader for *Omni-Code 25.0*. Designed with modern 
 omni-code-25/
 ├── index.html          # Web application & full book manuscript content
 └── README.md           # Repository documentation & author profile
+
+---
+
+## Author
+
+By: *Knoph O. Ayieko*
